@@ -1,135 +1,107 @@
-# .bashrc
 
-# Source global definitions
-# Right now this only sets PS1
-#if [ -f /etc/bashrc ]; then
-#	. /etc/bashrc
-#fi
-
-mesg y
-
-# User specific aliases and functions
-
-# For some reason we need to explicitly set PS1 here, as it is not
-# maintained in non-interactive shells.
-
-#export PS1="\u@\h:\w\n> "
-export  PS1="\u@\033[33m\]\h\033[0m\]: \w\n> " 
-#
-# where 
-
-#  \033[XYm\] -- starts color
-#  \033[0m\]  -- ends color
-#
-#  X = 3  -- colors text
-#      4  -- colors background
-#
-#  Y = 0  -- black
-#      1  -- red
-#      2  -- green
-#      3  -- browish/yellowish/orange 
-#      4  -- blue
-#      5  -- magenta
-#      6  -- aqua
-#      7  -- grey
-#      8  -- white
-#      9  -- white 
- 
-export MAC="wrpmg4e.bioch.virginia.edu"
-
-if [ $TERM == "xterm" ]
-then
-	export PROMPT_COMMAND='echo -ne "\033]0; ${HOSTNAME} \007"'
+# Get system defaults
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
 fi
 
+
+# Determine if the current dir is on a git branch
+function parse_git_branch {
+  if [[ -x /usr/bin/git ]]
+  then
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
+  fi
+}
+
+# Colorize PS1
+function set_prompt_color {
+
+  #  \033[Z;XYm\] -- starts color
+  #  \033[0m\]  -- ends color
+  #
+  #  Z = 0  -- "light"
+  #      1  -- "dark"
+  #
+  #  X = 3  -- colors text
+  #      4  -- colors background
+  #
+  #  Y = 0  -- black
+  #      1  -- red
+  #      2  -- green
+  #      3  -- browish/yellowish/orange
+  #      4  -- blue
+  #      5  -- magenta
+  #      6  -- aqua
+  #      7  -- grey
+  #      8  -- white
+  #      9  -- white
+
+  # 0 or 1
+  local Z=$(hostname | sum | awk '{print $1 % 2}')
+
+  # 1..7 (omit black and white)
+  local Y=$(hostname | sum | awk '{print (($1 - 2) % 7)+1}')
+
+  # Assign colorization abased on hostname
+  local HOSTCOLOR="\[\033[${Z};3${Y}m\]"
+
+  local         RED="\[\033[0;31m\]"
+  local   LIGHT_RED="\[\033[1;31m\]"
+  local       GREEN="\[\033[0;32m\]"
+  local LIGHT_GREEN="\[\033[1;32m\]"
+  local      ORANGE="\[\033[0;33m\]"
+  local        BLUE="\[\033[0;34m\]"
+  local     MAGENTA="\[\033[0;35m\]"
+  local        AQUA="\[\033[1;36m\]"
+  local       WHITE="\[\033[1;37m\]"
+  local  LIGHT_GRAY="\[\033[0;37m\]"
+  local     DEFAULT="\[\033[0m\]"
+
+  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$RED\$(parse_git_branch)$DEFAULT> "
+}
+
+set_prompt_color
+
+# vim command line
 set -o vi
 
-alias la='ls -FaG'
-alias ll='ls -lrtG'
-alias ls='ls -FG'
-
-alias pyb='pybliographic ~/phd/endnotes/endnotes.bib'
-
-alias bin='cd ~/bin'
-alias try='cd ~/try'
-alias tools='cd ~/tools'
-alias down='cd ~/Downloads'
-
-alias mtb='ssh mtb.sys.virginia.edu'
-alias bord='ssh -X mes@gamay.ucsd.edu'
-alias gamay='ssh -X mes@gamay.ucsd.edu'
-alias bordeaux='ssh -X mes@gamay.ucsd.edu'
-alias burns='ssh burns.sys.virginia.edu'
-alias mamba='ssh mamba.cs.virginia.edu'
-alias aes='ssh -l mes www.aescon.com'
-alias wwww='ssh -l mes www.aescon.com'
-alias www='ssh -l mes www.aescon.com'
-alias blue='ssh blue.unix.virginia.edu'
-alias cobra='ssh cobra.cs.virginia.edu'
-alias wrpx='ssh wrpx00.bioch.virginia.edu'
-#alias wrpx='dcop $KONSOLE_DCOP newSession wrpx' 
-alias alpha10='ssh alpha10.bioch.virginia.edu'
-alias sunray='ssh sunray.sys.virginia.edu'
-alias crick='ssh crick.med.virginia.edu'
-alias wrp_mac='ssh wrpmg4e.bioch.virginia.edu'
-alias my_mac='ssh wrpmg4e.bioch.virginia.edu'
-alias mac='ssh wrpmg4e.bioch.virginia.edu'
-alias my_apple='ssh wrpmg4e.bioch.virginia.edu'
-alias unfurl='unfurl.pl' 
-alias phd='cd ~/phd' 
-#alias startx='startx -dpi 100'
-#alias ant='ant -verbose' 
-alias disp='cd ~/phd/noptdisplay'
-alias dsrc='cd ~/phd/noptdisplay/src/edu/virginia/bioch/nopt'
-alias tsrc='cd ~/phd/noptdisplay/test/edu/virginia/bioch/nopt'
-alias near='cd ~/phd/noptalign/alignments'
-alias web='cd ~/phd/noptweb'
-alias nopt='cd ~/phd/noptalign2'
-alias prnt='prnt.sh'
-alias end='cd ~/phd/endnotes/xmlStuff'
-alias lpstat='lpstat -o all'
-alias soft='cd ~/software'
-alias top='top -d 1'
-alias money='/home/mes5k/software/moneydance/moneydance&'
-alias adsl-start='sudo /usr/sbin/adsl-start'
-alias adsl-stop='sudo /usr/sbin/adsl-stop'
-
-alias shutdown-restart='sudo /sbin/shutdown -r now'
-alias shutdown-halt='sudo /sbin/shutdown -h now'
-
+# commands and tools
+alias la='ls -GFa'
+alias ll='ls -Glrt'
+alias ls='ls -GF'
 alias vi='vim'
 
-alias squiggle='java -jar ~/software/batik-1.5/batik-squiggle.jar'
+# change dirs
+alias bin='cd ~/bin'
+alias soft='cd ~/software'
+alias down='cd ~/Downloads'
+alias try='cd ~/try'
+alias code='cd ~/code'
 
-alias xwrits='nohup xwrits typetime=50 breaktime=1 +mouse +quota +breakclock after=5 +finger flashtime=:.20 after=10 +top -quota flashtime=:.10 break=5&'
+# servers
+alias www='ssh mes@www.aescon.com'
 
-alias konq='konqueror'
+# work servers
+alias asm01='ssh -A asm01.c01.l.synthgeno.global'
+alias asm02='ssh -A asm02.c01.l.synthgeno.global'
+alias asm03='ssh -A asm03.c01.l.synthgeno.global'
+alias asm04='ssh -A asm04.c01.l.synthgeno.global'
+alias asm05='ssh -A asm05.c01.l.synthgeno.global'
+alias asm06='ssh -A asm06.c01.l.synthgeno.global'
+alias asm07='ssh -A asm07.c01.l.synthgeno.global'
+alias asm08='ssh -A asm08.c01.l.synthgeno.global'
+alias xdev07='ssh -A xdev07.l.synthgeno.global'
 
-alias todo='vi ~/.todo'
-
-alias urpmi='sudo /usr/sbin/urpmi'
-
-# csbi alii
-alias csbi_cvs="/usr/bin/cvs -d:ext:mes5k@cvs.sourceforge.net:/cvsroot/csbi"
-alias cyto_cvs="/usr/bin/cvs -d :ext:mes@gamay.ucsd.edu:/common/cvsdir5"
-alias wrp_cvs="/usr/bin/cvs -d :ext:mes5k@wrpsun2.bioch.virginia.edu:/rd0/users/CVS/source"
-alias tclap_cvs="/usr/bin/cvs -d:ext:mes5k@tclap.cvs.sourceforge.net:/cvsroot/tclap"
-
-alias cvs="echo WRONG! Use an alias: csbi_cvs, cyto_cvs, wrp_cvs, tclap_cvs"
-
-alias sd=". execSwitchDirs.sh"
+# commands
 alias things="vi ~/.things"
+alias todo="vi ~/.todo"
 
+# Amazon Web Services auto complete
+complete -C aws_completer aws
 
-# Disables the bloody CapsLock button
-#x11=`ps -ef | grep X11 | grep -Ev "up|grep|ps -ef"`
-#if [[ "$x11" != "" ]]
-#then
-#	if [ "$PS1" ]
-#	then
-#		xmodmap -e "remove lock = Caps_Lock"
-#	fi
-#fi
+# Setup for docker
+eval "$(docker-machine env default)"
+alias dockviz='docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz'
 
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# local dev environment setup
+source ~/code/dev_env/dev_env_setup.sh
