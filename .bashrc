@@ -100,8 +100,15 @@ alias todo="vi ~/.todo"
 complete -C aws_completer aws
 
 # Setup for docker
-eval "$(docker-machine env default)"
-alias dockviz='docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz'
+if [ -x "$(command -v docker-machine)" ]
+then
+    eval "$(docker-machine env default)"
+fi
+
+if [ -x "$(command -v docker)" ]
+then
+    alias dockviz='docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz'
+fi
 
 # local dev environment setup
 source ~/code/dev_env/dev_env_setup.sh
