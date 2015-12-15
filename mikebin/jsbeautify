@@ -1,0 +1,45 @@
+#!/bin/bash -e
+
+usage()
+{
+    echo
+    echo "USAGE: "
+    echo "  to STDOUT  :   jsbeautify <json file>"
+    echo "  in place   :   jsbeautify -i <json file> [additional json files]"
+    echo "  from STDIN :   cat <json file> | jsbeautify"
+    echo
+    exit 1
+}
+
+# help
+if [[ "x$1" == "x-h" || "x$1" == "x--help" ]]; then
+
+    usage
+
+# read from STDIN and write to STDOUT
+elif [ "x$1" == "x" ]; then
+
+    python -m json.tool
+
+# process json files in place
+elif [[ "x$1" == "x-i" && "x$2" != "x" ]]; then
+
+    # get rid of -i
+    shift
+
+    # loop over remaining args
+    for var in "$@"
+    do
+        echo "beautifying:  $var"
+        tmp=`mktemp -t jsbeautify`
+        cat $var | python -m json.tool > $tmp
+        #cp then rm preserves permissions
+        cp $tmp $var
+        rm $tmp
+    done
+
+
+# process single file to STDOUT
+else
+    cat $1 | python -m json.tool
+fi

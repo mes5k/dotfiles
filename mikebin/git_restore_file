@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "x$1" == "x" ];
+then
+    echo
+    echo "USAGE:   $0 <file to restore>"
+    echo
+    echo
+    exit 1
+fi
+
+git checkout $(git rev-list -n 1 HEAD -- "$1")^ -- "$1"

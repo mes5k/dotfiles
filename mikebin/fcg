@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sourceTargets='\.py$|\.R$|\.java$|\.sh$|\.pl$|\.xml$|\.js$'
+
+if [[ "x$1" == "x" ]]
+then
+    find . -type f | grep -E $sourceTargets
+    exit 0
+
+elif [[ "x$2" == "x" ]]
+then
+  grepArgs=" "
+  grepTarget=$1
+else
+  grepArgs=$1
+  grepTarget=$2
+fi
+
+find . -type f | grep -E $sourceTargets | xargs grep $grepArgs "$grepTarget" 

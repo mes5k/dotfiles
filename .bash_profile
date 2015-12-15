@@ -3,7 +3,7 @@ source $HOME/.bashrc
 
 export HISTSIZE=""
 
-export PATH=.:~/bin:$PATH
+export PATH=.:~/mikebin:~/bin:$PATH
 export PYTHONPATH=~/code
 
 if [ -x `which ssh-agent` ]

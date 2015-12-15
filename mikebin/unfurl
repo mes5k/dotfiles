@@ -1,0 +1,110 @@
+#!/usr/bin/perl
+#============================================================================
+#
+# Script to uncompress a zipped tarball.  If the maker of the tarball 
+# tarred a directory, then simply gunzip and untar.  If the maker instead
+# tarred files (annoying) make a directory based on the tarball name and
+# gunzip and untar everything into that dir.
+#
+#============================================================================
+
+if    ( $ARGV[0] =~ /.+\.tar\.gz/i )  { $style = 0; $tool = "gzip -dc "; } 
+elsif ( $ARGV[0] =~ /.+\.tar\.z/i )   { $style = 1; $tool = "gzip -dc "; } 
+elsif ( $ARGV[0] =~ /.+\.tgz/i )      { $style = 2; $tool = "gzip -dc "; } 
+elsif ( $ARGV[0] =~ /.+\.tar\.bz2/i ) { $style = 3; $tool = "bzip2 -dc "; } 
+elsif ( $ARGV[0] =~ /.+\.tbz/i )      { $style = 3; $tool = "bzip2 -dc "; } 
+elsif ( $ARGV[0] =~ /.+\.tar/i )      { $style = 2; $tool = "cat "; } 
+elsif ( $ARGV[0] =~ /.+\.zip/i )      { $style = 2; $tool = "unzip"; } 
+else 
+{ die "Sorry, I only take .tar, .tar.gz, .tar.Z, .tgz, .bz2, .tbz or .zip \n"; }
+
+
+#
+# Determine if a files or a directory were tarred.
+#
+$iters = 0;
+$matches = 1; 		# the first element always matches itself.
+
+if ( $tool ne "unzip" ) 
+{
+	open(FILES,"$tool $ARGV[0] | tar -tf - |") 
+    	|| die "Couldn't run comand to list contents of tarball...\n$!\n";
+	#
+	# Check to see if the first word in the listing of filenames is the same
+	# as every other one, indicating that a directory was tarred.
+	#
+	while (<FILES>)
+	{
+		chomp;
+		@word = split /\//, $_;
+
+		if ( $word[0] eq $previous) { $matches++; } 
+		$previous = $word[0];
+		$iters++;
+
+		if ( $word[0] eq "." || $word[0] eq ".." ) { $matches--; }
+	}
+	close FILES;
+}
+else
+{
+	print "Found zip file. Assuming files packaged.\n";
+}
+
+
+#
+# If the counts are the same then we know that all of the first words 
+# are identical implying that a directory was tarred and not individual
+# files.  This means we can untar directly without making a directory to
+# hold everything first.
+#
+# If the counts are unequal the implication is that files, not a directory 
+# were tarred.  So we first make a directory based on the filename in which to 
+# untar all of the files.
+#
+if ($iters == $matches) 
+{ 
+	print "\n\nA directory was packaged.\nUnfurling it here.\n\n"; 
+	sleep 3;
+	if ( $tool eq "unzip" )   
+	{ 
+		system("unzip $ARGV[0]"); 
+	}
+	else                      
+	{ 
+		system("$tool $ARGV[0] | tar -xvf - "); 
+	}
+}
+else
+{
+	if    ( $style == 0 ) { $dirname = substr $ARGV[0], 0, -7; }
+	elsif ( $style == 1 ) { $dirname = substr $ARGV[0], 0, -6; }
+	elsif ( $style == 2 ) { $dirname = substr $ARGV[0], 0, -4; }
+	elsif ( $style == 3 ) { $dirname = substr $ARGV[0], 0, -8; }
+
+	print "\n\nFiles were packaged.\n";
+	print "Making directory \"$dirname\" and unfurling in there.\n\n"; sleep 3;
+
+	unless (mkdir $dirname, 0755) {die "Couldn't make directory $dirname\n";}
+
+	if ( $tool eq "unzip" ) 
+	{ 
+		mkdir $dirname;
+		system("unzip -d $dirname $ARGV[0]");
+	}
+	else 
+	{ 
+		unless (chdir $dirname ) {die "Couldn't cd into $dirname\n";}
+		system("$tool ../$ARGV[0] | tar -xvf -"); 
+	}
+}	
+
+#
+# NOTE: GNU tar has -z and -b options that allow it to uncompress
+# before untarring.  For example:  tar -xvzf something.tgz
+# This is a whole lot cleaner looking than using stdout and piping, 
+# but given how I initially wrote this code, it would have made things 
+# more complicated to use that syntax.
+#
+
+
