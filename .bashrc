@@ -66,9 +66,24 @@ set_prompt_color
 set -o vi
 
 # commands and tools
-alias la='ls -GFa'
-alias ll='ls -Glrt'
-alias ls='ls -GF'
+os=$(uname)
+
+if [ "${os}" == "Darwin" ]
+then
+    alias la='ls -GFa'
+    alias ll='ls -Glrt'
+    alias ls='ls -GF'
+elif [ "${os}" == "Linux" ]
+then
+    alias la='ls -Fa --color=auto'
+    alias ll='ls -lrt --color=auto'
+    alias ls='ls -F --color=auto'
+else
+    alias la='ls -Fa'
+    alias ll='ls -lrt'
+    alias ls='ls -F'
+fi
+
 alias vi='vim'
 
 # change dirs
