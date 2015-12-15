@@ -1,28 +1,52 @@
-set autoindent autowrite wrapmargin=0 report=1 ts=4 nobackup ignorecase smartcase nocp
+" tabs as spaces
+set autoindent
+set autowrite
+set showmatch
+set wrapmargin=0
+set report=1
+set ts=4
+set nobackup
+set ignorecase
+set smartcase
+set nocp
+set expandtab
+set hlsearch
+
 :filetype indent off
-" for jslint plugin 
-:filetype plugin on 
-" for mac color syntax
-:syntax on 
+
+" for when you accidentally type :W or :WQ or :Q
 :cmap W w
 :cmap Q q
 
-" highlight search 
-set hlsearch
+":colorscheme solarized
+":colorscheme github
+":colorscheme desert
+":colorscheme default
+":colorscheme peachbuff
+":colorscheme shine
+":colorscheme zellner
 
+" Show trailing whitepace
+:highlight ExtraWhitespace ctermbg=green guibg=green
+:match ExtraWhitespace /\s\+$/
+
+" Show tab characters
+:highlight Tabs ctermbg=187 guibg=187
+:2match Tabs /\t/
+
+" Show characters beyond 95 width limit
+:highlight OverLength ctermbg=lightgrey guibg=lightgrey
+:call matchadd('OverLength', '\%>95v.\+')
+
+" turns showmatch off
 let loaded_matchparen = 1
 
-" incremental search 
-"set incsearch
+" for mac color syntax
+:syntax on
 
-" When editing a file, always jump to the last cursor position
 if has("autocmd")
- autocmd BufReadPost *
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-  \   exe "normal g'\"" |
- \ endif
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
 
 " see Linux Security Cookbook 7.24, pg 170 for details
 augroup encrypted
@@ -44,4 +68,4 @@ augroup encrypted
 				\ '[,']!sh -c 'gpg --default-recipient-self -e -a 2>/dev/null'
 	autocmd BufWritePost,FileWritePost	*.gpg,*.asc u
 augroup END
-		
+
