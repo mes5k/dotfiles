@@ -13,6 +13,17 @@ function parse_git_branch {
   fi
 }
 
+# Determine if the docker host in this
+# shell is set to a remote host or not.
+function parse_remote_docker {
+    if [[ $DOCKER_HOST == tcp://192.168*  || "x$DOCKER_HOST" == "x" ]]
+    then
+        echo ""
+    else
+        echo "{REMOTE DOCKER!}"
+    fi
+}
+
 # Colorize PS1
 function set_prompt_color {
 
@@ -55,9 +66,10 @@ function set_prompt_color {
   local        AQUA="\[\033[1;36m\]"
   local       WHITE="\[\033[1;37m\]"
   local  LIGHT_GRAY="\[\033[0;37m\]"
+  local     ON_ICYAN="\[\033[106m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
 }
 
 set_prompt_color
