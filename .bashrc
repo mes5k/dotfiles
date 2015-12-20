@@ -56,8 +56,8 @@ function set_prompt_color {
   # Assign colorization abased on hostname
   local HOSTCOLOR="\[\033[${Z};3${Y}m\]"
 
-  local         RED="\[\033[0;31m\]"
-  local   LIGHT_RED="\[\033[1;31m\]"
+  local         RED="\[\033[1;31m\]"
+  local   LIGHT_RED="\[\033[0;31m\]"
   local       GREEN="\[\033[0;32m\]"
   local LIGHT_GREEN="\[\033[1;32m\]"
   local      ORANGE="\[\033[0;33m\]"
@@ -69,7 +69,7 @@ function set_prompt_color {
   local     ON_ICYAN="\[\033[106m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$DEFAULT$RED\$(parse_git_branch)$DEFAULT> "
 }
 
 set_prompt_color
@@ -129,7 +129,11 @@ complete -C aws_completer aws
 # Setup for docker
 if [ -x "$(command -v docker-machine)" ]
 then
-    eval "$(docker-machine env default)"
+    running=$(docker-machine ls | grep default | grep Running)
+    if [ $? == 0 ]
+    then
+        eval "$(docker-machine env default)"
+    fi
 fi
 
 if [ -x "$(command -v docker)" ]
@@ -138,4 +142,7 @@ then
 fi
 
 # local dev environment setup
-source ~/code/dev_env/dev_env_setup.sh
+if [ -f ~/code/dev_env/dev_env_setup.sh ]
+then
+    source ~/code/dev_env/dev_env_setup.sh
+fi
