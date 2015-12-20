@@ -1,10 +1,13 @@
 
-source $HOME/.bashrc
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
 
 export HISTSIZE=""
 
-export PATH=.:~/mikebin:~/bin:$PATH
+export PATH=.:~/mikebin:~/bin:/opt/local/bin:/opt/local/sbin:$PATH
 export PYTHONPATH=~/code
+export MAVEN_OPTS="-Xmx1G -XX:PermSize=512M"
 
 if [ -x `which ssh-agent` ]
 then
