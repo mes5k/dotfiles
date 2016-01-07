@@ -118,6 +118,7 @@ alias asm06='ssh -A asm06.c01.l.synthgeno.global'
 alias asm07='ssh -A asm07.c01.l.synthgeno.global'
 alias asm08='ssh -A asm08.c01.l.synthgeno.global'
 alias xdev07='ssh -A xdev07.l.synthgeno.global'
+alias ssp-dev01='ssh -A ssp-dev01.l.synthgeno.global'
 
 # commands
 alias things="vi ~/.things"
@@ -138,4 +139,7 @@ then
 fi
 
 # local dev environment setup
-source ~/code/dev_env/dev_env_setup.sh
+if [ -e ~/code/dev_env/dev_env_setup.sh ]
+then
+    source ~/code/dev_env/dev_env_setup.sh
+fi
