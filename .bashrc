@@ -103,6 +103,7 @@ alias bin='cd ~/bin'
 alias soft='cd ~/software'
 alias down='cd ~/Downloads'
 alias try='cd ~/try'
+alias tmp='cd ~/tmp'
 alias code='cd ~/code'
 
 # servers
@@ -118,7 +119,13 @@ alias asm06='ssh -A asm06.c01.l.synthgeno.global'
 alias asm07='ssh -A asm07.c01.l.synthgeno.global'
 alias asm08='ssh -A asm08.c01.l.synthgeno.global'
 alias xdev07='ssh -A xdev07.l.synthgeno.global'
+alias xdev23='ssh -A xdev23.l.synthgeno.global'
 alias ssp-dev01='ssh -A ssp-dev01.l.synthgeno.global'
+alias ssp-dev02='ssh -A ssp-dev02.awsv.l.synthgeno.global'
+alias ssp01='ssh -A ssp01.l.synthgeno.global'
+alias service-dev='ssh -A service.dev.sgi.bio'
+alias search01='ssh -A search01-s01.lwdc.l.synthgeno.global'
+alias proc01='ssh -A proc01.c01.l.synthgeno.global'
 
 # commands
 alias things="vi ~/.things"
