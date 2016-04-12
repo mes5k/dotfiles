@@ -24,9 +24,18 @@ function parse_remote_docker {
     fi
 }
 
-# Colorize PS1
-function set_prompt_color {
+# does not work!
+function print_error_code {
+    local       DEFAULT="\[\033[0m\]"
+    local       ON_IRED="\[\033[0;101m\]"
+    ec=$(printf '%.*s' $? $?)
+    if [ "x${ec}" != "x" ]
+    then
+        echo "$ON_IRED(${ec})$DEFAULT"
+    fi
+}
 
+function get_host_color {
   #  \033[Z;XYm\] -- starts color
   #  \033[0m\]  -- ends color
   #
@@ -56,6 +65,12 @@ function set_prompt_color {
   # Assign colorization abased on hostname
   local HOSTCOLOR="\[\033[${Z};3${Y}m\]"
 
+  echo $HOSTCOLOR
+}
+
+# Colorize PS1
+function set_prompt_color {
+
   local         RED="\[\033[0;31m\]"
   local   LIGHT_RED="\[\033[1;31m\]"
   local       GREEN="\[\033[0;32m\]"
@@ -66,11 +81,13 @@ function set_prompt_color {
   local        AQUA="\[\033[1;36m\]"
   local       WHITE="\[\033[1;37m\]"
   local  LIGHT_GRAY="\[\033[0;37m\]"
-  local     ON_ICYAN="\[\033[106m\]"
+  local    ON_ICYAN="\[\033[106m\]"
+  local     ON_IRED="\[\033[0;101m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$(get_host_color)\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
 }
+
 
 set_prompt_color
 
