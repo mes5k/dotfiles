@@ -6,6 +6,8 @@ export HISTSIZE=""
 export PATH=.:~/mikebin:~/bin:$PATH
 export PYTHONPATH=~/code
 
+export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+
 if [ -x `which ssh-agent` ]
 then
   SSH_AGENT_STATE="/tmp/.ssh-agent-state.$USER"
