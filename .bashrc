@@ -68,6 +68,19 @@ function get_host_color {
   echo $HOSTCOLOR
 }
 
+function get_user_color {
+    local     ON_IRED="\[\033[0;101m\]"
+    local     I_BLACK="\[\033[0;90m\]"
+
+    # highlight if you're root
+    if [ "$(id -u)" == "0" ]
+    then
+        echo $ON_IRED
+    else
+        echo $I_BLACK
+    fi
+}
+
 # Colorize PS1
 function set_prompt_color {
 
@@ -85,7 +98,7 @@ function set_prompt_color {
   local     ON_IRED="\[\033[0;101m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$(get_host_color)\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$(get_user_color)\u$LIGHT_GRAY@$(get_host_color)\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
 }
 
 
