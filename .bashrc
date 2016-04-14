@@ -219,3 +219,9 @@ if [ -e ~/code/dev_env/dev_env_setup.sh ]
 then
     source ~/code/dev_env/dev_env_setup.sh
 fi
+
+# set up python venv if it exists
+if [ -d ~/python_venv ]
+then
+    source ~/python_venv/bin/activate
+fi
