@@ -137,7 +137,7 @@ function set_prompt_color {
   local     ON_IRED="\[\033[0;101m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$(get_user_color)\u$LIGHT_GRAY@$(get_host_color)\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$(get_user_color)\u$LIGHT_GRAY@$(get_host_color)\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT$ "
 }
 
 
