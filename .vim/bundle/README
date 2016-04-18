@@ -1,0 +1,9 @@
+
+All bundles cloned from a repo are added using git submodules <shudder>.
+
+To add a module:
+
+    yadm submodule add <url>
+
+Anything not a git repo can be added directly.
+
