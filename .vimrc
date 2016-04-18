@@ -48,6 +48,12 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+" preserve <tab> in makefiles
+autocmd FileType make set noexpandtab
+
+" load vim plugins with pathogen
+execute pathogen#infect()
+
 " see Linux Security Cookbook 7.24, pg 170 for details
 augroup encrypted
 	au!
