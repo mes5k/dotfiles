@@ -7,10 +7,49 @@ fi
 
 # Determine if the current dir is on a git branch
 function parse_git_branch {
-  if [[ -x /usr/bin/git ]]
-  then
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
-  fi
+    BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    if [ ! "${BRANCH}" == "" ]
+    then
+        STAT=$(parse_git_dirty)
+        echo "[${BRANCH}${STAT}]"
+    else
+        echo ""
+    fi
+}
+
+# Assess the current status of the repo
+function parse_git_dirty {
+    status=`git status 2>&1 | tee`
+    dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
+    untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
+    ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
+    newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
+    renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
+    deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
+    bits=''
+    if [ "${renamed}" == "0" ]; then
+        bits=">${bits}"
+    fi
+    if [ "${ahead}" == "0" ]; then
+        bits="*${bits}"
+    fi
+    if [ "${newfile}" == "0" ]; then
+        bits="+${bits}"
+    fi
+    if [ "${untracked}" == "0" ]; then
+        bits="?${bits}"
+    fi
+    if [ "${deleted}" == "0" ]; then
+        bits="x${bits}"
+    fi
+    if [ "${dirty}" == "0" ]; then
+        bits="!${bits}"
+    fi
+    if [ ! "${bits}" == "" ]; then
+        echo " ${bits}"
+    else
+        echo ""
+    fi
 }
 
 # Determine if the docker host in this
@@ -24,9 +63,18 @@ function parse_remote_docker {
     fi
 }
 
-# Colorize PS1
-function set_prompt_color {
+# does not work!
+function print_error_code {
+    local       DEFAULT="\[\033[0m\]"
+    local       ON_IRED="\[\033[0;101m\]"
+    ec=$(printf '%.*s' $? $?)
+    if [ "x${ec}" != "x" ]
+    then
+        echo "$ON_IRED(${ec})$DEFAULT"
+    fi
+}
 
+function get_host_color {
   #  \033[Z;XYm\] -- starts color
   #  \033[0m\]  -- ends color
   #
@@ -56,8 +104,27 @@ function set_prompt_color {
   # Assign colorization abased on hostname
   local HOSTCOLOR="\[\033[${Z};3${Y}m\]"
 
-  local         RED="\[\033[1;31m\]"
-  local   LIGHT_RED="\[\033[0;31m\]"
+  echo $HOSTCOLOR
+}
+
+function get_user_color {
+    local     ON_IRED="\[\033[0;101m\]"
+    local     I_BLACK="\[\033[0;90m\]"
+
+    # highlight if you're root
+    if [ "$(id -u)" == "0" ]
+    then
+        echo $ON_IRED
+    else
+        echo $I_BLACK
+    fi
+}
+
+# Colorize PS1
+function set_prompt_color {
+
+  local         RED="\[\033[0;31m\]"
+  local   LIGHT_RED="\[\033[1;31m\]"
   local       GREEN="\[\033[0;32m\]"
   local LIGHT_GREEN="\[\033[1;32m\]"
   local      ORANGE="\[\033[0;33m\]"
@@ -66,13 +133,16 @@ function set_prompt_color {
   local        AQUA="\[\033[1;36m\]"
   local       WHITE="\[\033[1;37m\]"
   local  LIGHT_GRAY="\[\033[0;37m\]"
-  local     ON_ICYAN="\[\033[106m\]"
+  local    ON_ICYAN="\[\033[106m\]"
+  local     ON_IRED="\[\033[0;101m\]"
   local     DEFAULT="\[\033[0m\]"
 
-  PS1="$HOSTCOLOR\u@\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$DEFAULT$RED\$(parse_git_branch)$DEFAULT> "
+  PS1="$(get_user_color)\u$LIGHT_GRAY@$(get_host_color)\h: $MAGENTA\w\n$DEFAULT$ON_ICYAN\$(parse_remote_docker)$RED\$(parse_git_branch)$DEFAULT$ "
 }
 
+
 set_prompt_color
+
 
 # vim command line
 set -o vi
@@ -103,6 +173,7 @@ alias bin='cd ~/bin'
 alias soft='cd ~/software'
 alias down='cd ~/Downloads'
 alias try='cd ~/try'
+alias tmp='cd ~/tmp'
 alias code='cd ~/code'
 
 # servers
@@ -118,6 +189,12 @@ alias asm06='ssh -A asm06.c01.l.synthgeno.global'
 alias asm07='ssh -A asm07.c01.l.synthgeno.global'
 alias asm08='ssh -A asm08.c01.l.synthgeno.global'
 alias xdev07='ssh -A xdev07.l.synthgeno.global'
+alias xdev23='ssh -A xdev23.l.synthgeno.global'
+alias ssp-dev02='ssh -A ssp-dev02.awsv.l.synthgeno.global'
+alias ssp01='ssh -A ssp01.l.synthgeno.global'
+alias service-dev='ssh -A service.dev.sgi.bio'
+alias search01='ssh -A search01-s01.lwdc.l.synthgeno.global'
+alias proc01='ssh -A proc01.c01.l.synthgeno.global'
 
 # commands
 alias things="vi ~/.things"
@@ -142,7 +219,13 @@ then
 fi
 
 # local dev environment setup
-if [ -f ~/code/dev_env/dev_env_setup.sh ]
+if [ -e ~/code/dev_env/dev_env_setup.sh ]
 then
     source ~/code/dev_env/dev_env_setup.sh
+fi
+
+# set up python venv if it exists
+if [ -d ~/python_venv ]
+then
+    source ~/python_venv/bin/activate
 fi
