@@ -206,7 +206,11 @@ complete -C aws_completer aws
 # Setup for docker
 if [ -x "$(command -v docker-machine)" ]
 then
-    eval "$(docker-machine env default)"
+    running=$(docker-machine ls | grep default | grep Running)
+    if [ $? == 0 ]
+    then
+        eval "$(docker-machine env default)"
+    fi
 fi
 
 if [ -x "$(command -v docker)" ]
