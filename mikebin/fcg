@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sourceTargets='\.py$|\.R$|\.java$|\.sh$|\.pl$|\.xml$|\.js$|Dockerfile|Makefile|\.toml$|\.rs$|\.rb$|\.cpp$|\.hpp$|\.H$|\.C$|\.c$|\.h$|\.ex$|\.exs$|\.erl$'
+sourceTargets='\.py$|\.R$|\.java$|\.sh$|\.pl$|\.xml$|\.js$|Dockerfile|Makefile|\.toml$|\.rs$|\.rb$|\.cpp$|\.hpp$|\.H$|\.C$|\.c$|\.h$|\.ex$|\.exs$|\.erl$|\.groovy$|\.scala$'
 
 if [[ "x$1" == "x" ]]
 then
