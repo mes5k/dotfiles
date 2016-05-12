@@ -54,6 +54,9 @@ autocmd FileType make set noexpandtab
 " load vim plugins with pathogen
 execute pathogen#infect()
 
+" Highlight nextflow files as groovy
+au BufNewFile,BufRead *.nf set filetype=groovy
+
 " see Linux Security Cookbook 7.24, pg 170 for details
 augroup encrypted
 	au!
