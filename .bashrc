@@ -196,6 +196,9 @@ alias service-dev='ssh -A service.dev.sgi.bio'
 alias search01='ssh -A search01-s01.lwdc.l.synthgeno.global'
 alias proc01='ssh -A proc01.c01.l.synthgeno.global'
 
+alias aws_root='ssh -i ~/AWS/aws_mes.pem ubuntu@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
+alias aws='ssh mes@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
+
 # commands
 alias things="vi ~/.things"
 alias todo="vi ~/.todo"
