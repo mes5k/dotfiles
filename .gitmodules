@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/groovy.vim"]
 	path = .vim/bundle/groovy.vim
 	url = https://github.com/vim-scripts/groovy.vim.git
+[submodule ".vim/bundle/vim-gradle"]
+	path = .vim/bundle/vim-gradle
+	url = https://github.com/tfnico/vim-gradle.git
