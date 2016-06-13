@@ -13,6 +13,8 @@ then
 
     export PATH=~/code/dockerized_tools/bin:$PATH
 
+    export PATH=~/.multirust/toolchains/stable/cargo/bin:$PATH
+
     export PYTHONPATH=~/code
 
     export RUST_BACKTRACE=1
