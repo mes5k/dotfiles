@@ -11,9 +11,18 @@ HOST=`hostname -f`
 if [[ "$HOST" == "msmoot02-mbp.local" || "$HOST" == *synthgeno.global ]]
 then
 
-    export PATH=~/code/dockerized_tools/bin:$PATH
+    if [ -d /tools/dockerized_tools ]
+    then
+        export PATH=/tools/dockerized_tools/bin:$PATH
+    elif [ -d ~/code/dockerized_tools ]
+    then
+        export PATH=~/code/dockerized_tools/bin:$PATH
+    fi
 
-    export PATH=~/.multirust/toolchains/stable/cargo/bin:$PATH
+    if [ -d ~/.multirust ]
+    then
+        export PATH=~/.multirust/toolchains/stable/cargo/bin:$PATH
+    fi
 
     export PYTHONPATH=~/code
 
@@ -23,6 +32,11 @@ then
     then
         export GOPATH=~/go_work
         export PATH=$GOPATH/bin:$PATH
+    fi
+
+    if [ -d ~/miniconda2 ]
+    then
+        export PATH=~/miniconda2/bin:$PATH
     fi
 fi
 
@@ -55,3 +69,4 @@ fi
 #  fi
 #fi
 #
+
