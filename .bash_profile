@@ -11,6 +11,12 @@ HOST=`hostname -f`
 if [[ "$HOST" == "msmoot02-mbp.local" || "$HOST" == *synthgeno.global ]]
 then
 
+    if [ -d /tools/R-3.2.3 ]
+    then
+        export R_HOME=/tools/R-3.2.3
+        export PATH=$R_HOME/bin:$PATH
+    fi
+
     if [ -d /tools/dockerized_tools ]
     then
         export PATH=/tools/dockerized_tools/bin:$PATH
