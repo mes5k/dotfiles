@@ -7,7 +7,7 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\
 export MAVEN_OPTS="-Xmx1G -XX:PermSize=512M"
 
 # work only
-HOST=`hostname -f`
+HOST=`hostname`
 if [[ "$HOST" == "msmoot02-mbp.local" || "$HOST" == *synthgeno.global ]]
 then
 
