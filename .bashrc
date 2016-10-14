@@ -202,6 +202,7 @@ alias proc01='ssh -A proc01.c01.l.synthgeno.global'
 alias gbrowse02='ssh -A gbrowse02.lwdc.l.synthgeno.global'
 alias jbrowse01='ssh -A jbrowse01.awsv.l.synthgeno.global'
 alias asm-micro='ssh -A asm-microsvcs01.l.synthgeno.global'
+alias mirror='ssh -A mirror.l.synthgeno.global'
 
 alias aws_root='ssh -i ~/AWS/aws_mes.pem ubuntu@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
 alias aws='ssh mes@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'

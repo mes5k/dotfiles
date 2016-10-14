@@ -16,4 +16,4 @@ else
   grepTarget=$2
 fi
 
-find . -type f | grep -E $sourceTargets | xargs grep $grepArgs "$grepTarget" 
+find . -type f | grep -E $sourceTargets | grep -v ' ' | xargs grep $grepArgs "$grepTarget"
