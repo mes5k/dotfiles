@@ -210,6 +210,8 @@ alias aws='ssh mes@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
 alias things="vi ~/.things"
 alias todo="vi ~/.todo"
 
+alias servedir="python -m SimpleHTTPServer"
+
 # Amazon Web Services auto complete
 complete -C aws_completer aws
 
