@@ -40,10 +40,6 @@ then
         export PATH=$GOPATH/bin:$PATH
     fi
 
-    if [ -d ~/miniconda2 ]
-    then
-        export PATH=~/miniconda2/bin:$PATH
-    fi
 fi
 
 #
