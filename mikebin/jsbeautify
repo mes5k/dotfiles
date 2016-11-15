@@ -31,7 +31,7 @@ elif [[ "x$1" == "x-i" && "x$2" != "x" ]]; then
     for var in "$@"
     do
         echo "beautifying:  $var"
-        tmp=`mktemp -t jsbeautify`
+        tmp=`mktemp -t jsbeautify.XXXXX`
         cat $var | python -m json.tool > $tmp
         #cp then rm preserves permissions
         cp $tmp $var
