@@ -203,7 +203,9 @@ alias gbrowse02='ssh -A gbrowse02.lwdc.l.synthgeno.global'
 alias jbrowse01='ssh -A jbrowse01.awsv.l.synthgeno.global'
 alias asm-micro='ssh -A asm-microsvcs01.l.synthgeno.global'
 alias mirror='ssh -A mirror.l.synthgeno.global'
+# assumes you've run 'ssh-add ~/.ssh/msmoot-aws.pem'
 alias aws-base='ssh -l centos -A 172.19.0.208'
+alias nf-aws-base='ssh -l centos -A 172.19.0.190'
 
 
 alias aws_home_root='ssh -i ~/AWS/aws_mes.pem ubuntu@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
