@@ -2,9 +2,16 @@
 # common
 source ~/.bashrc
 export HISTSIZE=""
-export PATH=.:~/mikebin:~/bin:~/.cargo/bin:$PATH
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
 export MAVEN_OPTS="-Xmx1G -XX:PermSize=512M"
+
+# set up python venv if it exists - do this BEFORE setting PATH
+if [ -d ~/python_venv ]
+then
+    source ~/python_venv/bin/activate
+fi
+
+export PATH=.:~/mikebin:~/bin:~/.cargo/bin:~/bin:$PATH
 
 # work only
 HOST=`hostname`
