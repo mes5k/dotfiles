@@ -206,6 +206,9 @@ alias mirror='ssh -A mirror.l.synthgeno.global'
 # assumes you've run 'ssh-add ~/.ssh/msmoot-aws.pem'
 alias aws-base='ssh -l centos -A 172.19.0.208'
 alias nf-aws-base='ssh -l centos -A 172.19.0.190'
+alias refresh-aws='echo_aws_creds.py default > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
+alias okta-aws='okta_cli.py -c ~/.okta_config_sgi.yml && echo_aws_creds.py sgi > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
+alias f7='cd ~/code/flux7'
 
 
 alias aws_home_root='ssh -i ~/AWS/aws_mes.pem ubuntu@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
@@ -247,8 +250,3 @@ then
     source ~/code/microservicesci/microservicesci_setup.sh
 fi
 
-# set up python venv if it exists
-if [ -d ~/python_venv ]
-then
-    source ~/python_venv/bin/activate
-fi
