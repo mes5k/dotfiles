@@ -25,11 +25,6 @@ then
         export PATH=~/code/dockerized_tools/bin:$PATH
     fi
 
-    if [ -d ~/.multirust ]
-    then
-        export PATH=~/.multirust/toolchains/stable/cargo/bin:$PATH
-    fi
-
     export PYTHONPATH=~/code
 
     export RUST_BACKTRACE=1
