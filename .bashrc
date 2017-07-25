@@ -207,7 +207,8 @@ alias mirror='ssh -A mirror.l.synthgeno.global'
 alias aws-base='ssh -l centos -A 172.19.0.208'
 alias nf-aws-base='ssh -l centos -A 172.19.0.190'
 alias refresh-aws='echo_aws_creds.py default > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
-alias okta-aws='okta_cli.py -c ~/.okta_config_sgi.yml && echo_aws_creds.py sgi > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
+#alias okta-aws='okta_cli.py -c ~/.okta_config_sgi.yml && echo_aws_creds.py sgi > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
+alias okta-aws='eval $(~/code/okta_aws_login/okta_aws_login.py)'
 alias f7='cd ~/code/flux7'
 
 
@@ -223,15 +224,15 @@ alias servedir="python -m SimpleHTTPServer"
 # Amazon Web Services auto complete
 complete -C aws_completer aws
 
-# Setup for docker
-if [ -x "$(command -v docker-machine)" ]
-then
-    running=$(docker-machine ls | grep default | grep Running)
-    if [ $? == 0 ]
-    then
-        eval "$(docker-machine env default)"
-    fi
-fi
+## Setup for docker
+#if [ -x "$(command -v docker-machine)" ]
+#then
+#    running=$(docker-machine ls | grep default | grep Running)
+#    if [ $? == 0 ]
+#    then
+#        eval "$(docker-machine env default)"
+#    fi
+#fi
 
 if [ -x "$(command -v docker)" ]
 then
