@@ -245,9 +245,9 @@ then
     source ~/code/dev_env/dev_env_setup.sh
 fi
 
-# local microservice dev environment setup
-if [ -e ~/code/microservicesci/microservicesci_setup.sh ]
-then
-    source ~/code/microservicesci/microservicesci_setup.sh
-fi
+## local microservice dev environment setup
+#if [ -e ~/code/microservicesci/microservicesci_setup.sh ]
+#then
+#    source ~/code/microservicesci/microservicesci_setup.sh
+#fi
 
