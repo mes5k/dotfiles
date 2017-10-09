@@ -16,3 +16,9 @@
 [submodule ".vim/bundle/vim-gradle"]
 	path = .vim/bundle/vim-gradle
 	url = https://github.com/tfnico/vim-gradle.git
+[submodule ".vim/bundle/vim-go"]
+	path = .vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule ".vim/bundle/vim-toml"]
+	path = .vim/bundle/vim-toml
+	url = https://github.com/cespare/vim-toml.git
