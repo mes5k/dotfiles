@@ -179,39 +179,6 @@ alias code='cd ~/code'
 # servers
 alias www='ssh mes@www.aescon.com'
 
-# work servers
-alias asm01='ssh -A asm01.c01.l.synthgeno.global'
-alias asm02='ssh -A asm02.c01.l.synthgeno.global'
-alias asm03='ssh -A asm03.c01.l.synthgeno.global'
-alias asm04='ssh -A asm04.c01.l.synthgeno.global'
-alias asm05='ssh -A asm05.c01.l.synthgeno.global'
-alias asm06='ssh -A asm06.c01.l.synthgeno.global'
-alias asm07='ssh -A asm07.c01.l.synthgeno.global'
-alias asm08='ssh -A asm08.c01.l.synthgeno.global'
-alias asm09='ssh -A asm09.c01.l.synthgeno.global'
-alias asm-util01='ssh -A asm-util01.l.synthgeno.global'
-alias xdev07='ssh -A xdev07.l.synthgeno.global'
-alias xdev23='ssh -A xdev23.l.synthgeno.global'
-alias ssp-dev02='ssh -A ssp-dev02.awsv.l.synthgeno.global'
-alias ssp-stage02='ssh -A ssp-stage02.l.synthgeno.global'
-alias shiny-dev01='ssh -A shiny-dev01.l.synthgeno.global'
-alias ssp01='ssh -A ssp01.l.synthgeno.global'
-alias service-dev='ssh -A service.dev.sgi.bio'
-alias search01='ssh -A search01-s01.lwdc.l.synthgeno.global'
-alias proc01='ssh -A proc01.c01.l.synthgeno.global'
-alias gbrowse02='ssh -A gbrowse02.lwdc.l.synthgeno.global'
-alias jbrowse01='ssh -A jbrowse01.awsv.l.synthgeno.global'
-alias asm-micro='ssh -A asm-microsvcs01.l.synthgeno.global'
-alias mirror='ssh -A mirror.l.synthgeno.global'
-# assumes you've run 'ssh-add ~/.ssh/msmoot-aws.pem'
-alias aws-base='ssh -l centos -A 172.19.0.208'
-alias nf-aws-base='ssh -l centos -A 172.19.0.190'
-alias refresh-aws='echo_aws_creds.py default > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
-#alias okta-aws='okta_cli.py -c ~/.okta_config_sgi.yml && echo_aws_creds.py sgi > ~/.stupid-okta && source ~/.stupid-okta && rm  ~/.stupid-okta && touch /tmp/okta.aws.updated'
-alias okta-aws='eval $(~/code/okta_aws_login/okta_aws_login.py)'
-alias f7='cd ~/code/flux7'
-
-
 alias aws_home_root='ssh -i ~/AWS/aws_mes.pem ubuntu@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
 alias aws_home_mes='ssh mes@ec2-54-67-35-224.us-west-1.compute.amazonaws.com'
 
@@ -224,16 +191,6 @@ alias servedir="python -m SimpleHTTPServer"
 # Amazon Web Services auto complete
 complete -C aws_completer aws
 
-## Setup for docker
-#if [ -x "$(command -v docker-machine)" ]
-#then
-#    running=$(docker-machine ls | grep default | grep Running)
-#    if [ $? == 0 ]
-#    then
-#        eval "$(docker-machine env default)"
-#    fi
-#fi
-
 if [ -x "$(command -v docker)" ]
 then
     alias dockviz='docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz'
@@ -245,9 +202,18 @@ then
     source ~/code/dev_env/dev_env_setup.sh
 fi
 
-## local microservice dev environment setup
-#if [ -e ~/code/microservicesci/microservicesci_setup.sh ]
-#then
-#    source ~/code/microservicesci/microservicesci_setup.sh
-#fi
+if [ -e ~/software/google-cloud-sdk/path.bash.inc ]
+then
+    source ~/software/google-cloud-sdk/path.bash.inc
+fi
+
+if [ -e ~/software/google-cloud-sdk/completion.bash.inc ]
+then
+    source ~/software/google-cloud-sdk/completion.bash.inc
+fi
+
+# set local aliases
+if [ -f ~/.local_aliases ]; then
+    source ~/.local_aliases
+fi
 
