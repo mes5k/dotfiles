@@ -175,6 +175,8 @@ alias down='cd ~/Downloads'
 alias try='cd ~/try'
 alias tmp='cd ~/tmp'
 alias code='cd ~/code'
+alias data='cd ~/data'
+alias scratch='cd ~/scratch'
 
 # servers
 alias www='ssh mes@www.aescon.com'
