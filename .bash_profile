@@ -32,7 +32,7 @@ then
         export PATH=~/code/dockerized_tools/bin:$PATH
     fi
 
-    export PYTHONPATH=~/code
+    #export PYTHONPATH=~/code
 
     export RUST_BACKTRACE=1
 
