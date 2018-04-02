@@ -6,9 +6,18 @@ export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\
 export MAVEN_OPTS="-Xmx1G -XX:PermSize=512M"
 
 # set up python venv if it exists - do this BEFORE setting PATH
-if [ -d ~/python_venv ]
+HOST=`hostname`
+if [[ $HOST == gpu* ]]
 then
-    source ~/python_venv/bin/activate
+    if [ -d ~/gpu_venv ]
+    then
+        source ~/gpu_venv/bin/activate
+    fi
+else
+    if [ -d ~/python_venv ]
+    then
+        source ~/python_venv/bin/activate
+    fi
 fi
 
 export PATH=.:~/mikebin:~/bin:~/.cargo/bin:~/bin:$PATH
