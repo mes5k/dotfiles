@@ -34,9 +34,10 @@ set hlsearch
 :highlight Tabs ctermbg=187 guibg=187
 :2match Tabs /\t/
 
-" Show characters beyond 95 width limit
-:highlight OverLength ctermbg=lightgrey guibg=lightgrey
-:call matchadd('OverLength', '\%>95v.\+')
+"" This is OK where line length really matters, but obscures other highlights.
+"" Show characters beyond 95 width limit
+":highlight OverLength ctermbg=lightgrey guibg=lightgrey
+":call matchadd('OverLength', '\%>95v.\+')
 
 " turns showmatch off
 let loaded_matchparen = 1
