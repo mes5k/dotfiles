@@ -7,3 +7,4 @@ To add a module:
 
 Anything not a git repo can be added directly.
 
+Then just commit the .gitmodules file.  Don't commit the dirs actually added here!
