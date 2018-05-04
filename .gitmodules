@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/vim-terraform"]
 	path = .vim/bundle/vim-terraform
 	url = https://github.com/hashivim/vim-terraform.git
+[submodule ".vim/bundle/vim-clojure-static"]
+	path = .vim/bundle/vim-clojure-static
+	url = https://github.com/guns/vim-clojure-static.git
