@@ -31643,10 +31643,11 @@ words = [
 ]
 
 def glue():
-    chars =  ['!', '@', '#', '$', '%', '^', '&', '*', ':', ';'] + list(string.digits)
-    num = random.randint(1,3)
-    w = [ chars[random.randint(0,len(chars)-1)] for x in range(1,num)]
-    return ''.join(w)
+    chars =  ['.', '-', ',', '_', '!', '@', '#', '$', '%', '^', '&', '*', ':', ';'] + list(string.digits)
+    #num = random.randint(1,3)
+    #w = [ chars[random.randint(0,len(chars)-1)] for x in range(1,num)]
+    #return ''.join(w)
+    return chars[random.randint(0,len(chars)-1)]
 
 def word():
     w = words[random.randint(0, len(words)-1)]
@@ -31655,28 +31656,35 @@ def word():
     m = w[1:-1]
     if random.randint(0,1) == 1:
         wf = wf.capitalize()
-    if random.randint(0,1) == 1:
-        wl = wl.capitalize()
+#    if random.randint(0,1) == 1:
+#        wl = wl.capitalize()
 
-    if random.randint(0,2) == 1:
-        m = m.replace('i','1')
-    if random.randint(0,2) == 1:
-        m = m.replace('s','5')
-    if random.randint(0,2) == 1:
-        m = m.replace('e','3')
-    if random.randint(0,2) == 1:
-        m = m.replace('o','0')
+#    if random.randint(0,2) == 1:
+#        m = m.replace('i','1')
+#    if random.randint(0,2) == 1:
+#        m = m.replace('s','5')
+#    if random.randint(0,2) == 1:
+#        m = m.replace('e','3')
+#    if random.randint(0,2) == 1:
+#        m = m.replace('o','0')
 
     return wf + m + wl
 
 def gen():
     w1 =  word()
     w2 =  word()
+    w3 =  word()
     g1 = glue()
     g2 = glue()
-    print "%s%s%s%s" % (w1,g1,w2,g2)
+    return "%s%s%s%s%s" % (w1,g1,w2,g2,w3)
 
-for x in range(10):
-    gen()
+for i in range(10):
+    w = gen()
+    if len(w) > 16:
+        print w
+    else:
+        i -= 1
+
+
 
 
