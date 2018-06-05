@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -A -l ubuntu -t ec2-34-216-225-177.us-west-2.compute.amazonaws.com ssh $@
