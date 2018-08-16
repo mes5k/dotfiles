@@ -190,6 +190,10 @@ alias todo="vi ~/.todo"
 
 alias servedir="python -m SimpleHTTPServer"
 
+alias k=kubectl
+
+source <(kubectl completion bash | sed s/kubectl/k/g)
+
 # Amazon Web Services auto complete
 complete -C aws_completer aws
 

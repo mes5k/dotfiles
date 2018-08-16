@@ -5,6 +5,8 @@ export HISTSIZE=""
 export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
 export MAVEN_OPTS="-Xmx1G -XX:PermSize=512M"
 
+export PYTHON3_VENV=~/python3_venv
+
 # set up python venv if it exists - do this BEFORE setting PATH
 HOST=`hostname`
 if [[ $HOST == gpu* ]]
