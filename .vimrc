@@ -70,6 +70,8 @@ au BufNewFile,BufRead *.json set filetype=javascript
 " Highlight cromwell conf files as wdl
 au BufNewFile,BufRead *.conf set filetype=wdl
 
+" Highlight Vagrantfile files as ruby
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 " see Linux Security Cookbook 7.24, pg 170 for details
 augroup encrypted
