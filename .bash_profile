@@ -16,13 +16,16 @@ then
         source ~/gpu_venv/bin/activate
     fi
 else
-    if [ -d ~/python_venv ]
+    if [ -d ~/python3_venv ]
+    then
+        source ~/python3_venv/bin/activate
+    elif [ -d ~/python_venv ]
     then
         source ~/python_venv/bin/activate
     fi
 fi
 
-export PATH=.:~/mikebin:~/bin:~/.cargo/bin:~/bin:$PATH
+export PATH=.:/usr/local/bin:~/mikebin:~/bin:~/.cargo/bin:~/bin:$PATH
 
 # work only
 HOST=`hostname`
@@ -86,3 +89,9 @@ fi
 #
 
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mes/software/google-cloud-sdk/path.bash.inc' ]; then source '/Users/mes/software/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/mes/software/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/mes/software/google-cloud-sdk/completion.bash.inc'; fi
