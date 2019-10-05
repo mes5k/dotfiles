@@ -52,14 +52,26 @@ endif
 " preserve <tab> in makefiles
 autocmd FileType make set noexpandtab
 
+" highlights carriage returns (\r) as ^M at end of line
+set fileformats=unix
+
 " load vim plugins with pathogen
 execute pathogen#infect()
 
 " Highlight nextflow files as groovy
 au BufNewFile,BufRead *.nf set filetype=groovy
 
+" Highlight Jenkinsfile files as groovy
+au BufNewFile,BufRead Jenkinsfile set filetype=groovy
+
 " Highlight json files as javascript
 au BufNewFile,BufRead *.json set filetype=javascript
+
+" Highlight cromwell conf files as wdl
+au BufNewFile,BufRead *.conf set filetype=wdl
+
+" Highlight Vagrantfile files as ruby
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 " see Linux Security Cookbook 7.24, pg 170 for details
 augroup encrypted

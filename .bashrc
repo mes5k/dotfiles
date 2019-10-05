@@ -99,7 +99,7 @@ function get_host_color {
   local Z=$(hostname | sum | awk '{print $1 % 2}')
 
   # 1..7 (omit black and white)
-  local Y=$(hostname | sum | awk '{print (($1 - 2) % 7)+1}')
+  local Y=$(hostname | sum | awk '{print ($1 % 7)+1}')
 
   # Assign colorization abased on hostname
   local HOSTCOLOR="\[\033[${Z};3${Y}m\]"
@@ -167,11 +167,14 @@ else
 fi
 
 alias vi='vim'
+alias secs_since_epoch='eval date +%s'
+alias set_aws_env='eval $(cat ~/.aws/credentials | grep aws | awk '\''{print "export " toupper($1) $2 $3}'\'')'
 
 # change dirs
 alias bin='cd ~/bin'
 alias soft='cd ~/software'
 alias down='cd ~/Downloads'
+alias docs='cd ~/Documents'
 alias try='cd ~/try'
 alias tmp='cd ~/tmp'
 alias code='cd ~/code'
@@ -189,6 +192,12 @@ alias things="vi ~/.things"
 alias todo="vi ~/.todo"
 
 alias servedir="python -m SimpleHTTPServer"
+
+alias ff="find . -name .git -prune -o -type f"
+
+#alias k=kubectl
+
+#source <(kubectl completion bash | sed s/kubectl/k/g)
 
 # Amazon Web Services auto complete
 complete -C aws_completer aws

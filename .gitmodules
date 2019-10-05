@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/vim-tsx"]
 	path = .vim/bundle/vim-tsx
 	url = https://github.com/ianks/vim-tsx.git
+[submodule ".vim/bundle/vim-wdl"]
+	path = .vim/bundle/vim-wdl
+	url = https://github.com/broadinstitute/vim-wdl.git

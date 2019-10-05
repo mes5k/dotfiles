@@ -31681,7 +31681,7 @@ def gen():
 for i in range(10):
     w = gen()
     if len(w) > 16:
-        print w
+        print(w)
     else:
         i -= 1
 
