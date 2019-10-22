@@ -31,6 +31,12 @@
 [submodule ".vim/bundle/vim-scala"]
 	path = .vim/bundle/vim-scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule ".vim/bundle/typescript-vim"]
+	path = .vim/bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule ".vim/bundle/vim-tsx"]
+	path = .vim/bundle/vim-tsx
+	url = https://github.com/ianks/vim-tsx.git
 [submodule ".vim/bundle/vim-wdl"]
 	path = .vim/bundle/vim-wdl
 	url = https://github.com/broadinstitute/vim-wdl.git
