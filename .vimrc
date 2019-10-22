@@ -31,7 +31,8 @@ set hlsearch
 :match ExtraWhitespace /\s\+$/
 
 " Show tab characters
-:highlight Tabs ctermbg=187 guibg=187
+" Run :so ~/mikebin/color_demo.vim in vim to see all the possibile colors
+:highlight Tabs ctermbg=255 guibg=255
 :2match Tabs /\t/
 
 "" This is OK where line length really matters, but obscures other highlights.
