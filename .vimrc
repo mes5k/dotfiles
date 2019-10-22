@@ -52,6 +52,7 @@ endif
 
 " preserve <tab> in makefiles
 autocmd FileType make set noexpandtab
+autocmd FileType go set noexpandtab
 
 " highlights carriage returns (\r) as ^M at end of line
 set fileformats=unix
