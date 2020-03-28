@@ -193,7 +193,8 @@ alias todo="vi ~/.todo"
 
 alias servedir="python -m SimpleHTTPServer"
 
-alias ff="find . -name .git -prune -o -type f"
+#alias ff="find . -type f -name .git -prune -o -type f"
+alias ff="find . -not -path '*.git*' -type f"
 
 #alias k=kubectl
 

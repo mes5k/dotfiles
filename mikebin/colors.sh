@@ -188,3 +188,8 @@ echo -ne "$On_ICyan On_ICyan $Color_Off"
 echo "  $On_ICyan"
 echo -ne "$On_IWhite On_IWhite $Color_Off"
 echo "  $On_IWhite"
+echo
+echo
+echo "To see vim colors:"
+echo "vim"
+echo ":so ~/mikebin/color_demo.vim"
