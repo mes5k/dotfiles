@@ -229,3 +229,8 @@ if [ -f ~/.local_aliases ]; then
     source ~/.local_aliases
 fi
 
+# setup SSH_AUTH_SOCK for screen
+if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
