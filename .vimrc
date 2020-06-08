@@ -64,7 +64,7 @@ execute pathogen#infect()
 au BufNewFile,BufRead *.nf set filetype=groovy
 
 " Highlight Jenkinsfile files as groovy
-au BufNewFile,BufRead Jenkinsfile set filetype=groovy
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 
 " Highlight json files as javascript
 au BufNewFile,BufRead *.json set filetype=javascript
