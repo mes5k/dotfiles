@@ -3,9 +3,6 @@
 import argparse
 import sys
 
-def main():
-    args = parse_args()
-
 def check_positive(value):
     ivalue = int(value)
     if ivalue <= 0:
@@ -30,6 +27,9 @@ def parse_args():
 
     ## Return as a map instead of args object.
     #return vars(parser.parse_args())
+
+def main():
+    args = parse_args()
 
 if __name__ == '__main__':
     main()

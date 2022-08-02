@@ -9,6 +9,7 @@ def parse_args():
     parser.add_argument('jsons', nargs='+', help='One or more JSON files')
     parser.add_argument('-i', '--inplace', action='store_true', help='Update file in place')
     parser.add_argument('-I', '--indent', type=int, default=4, help='Number of spaces to indent')
+    parser.add_argument('-s', '--sort', action='store_true', help='Sort keys')
 
     return parser.parse_args()
 
@@ -22,9 +23,9 @@ def main():
 
         if args.inplace:
             with open(y, 'w') as yout:
-                json.dump(data, yout, indent=args.indent)
+                json.dump(data, yout, indent=args.indent, sort_keys=args.sort)
         else:
-            json.dump(data, sys.stdout, indent=args.indent)
+            json.dump(data, sys.stdout, indent=args.indent, sort_keys=args.sort)
             print()
 
 if __name__ == '__main__':

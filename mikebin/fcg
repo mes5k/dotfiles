@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sourceTargets='\.py$|\.R$|\.java$|\.sh$|\.pl$|\.xml$|\.js$|\.jsx$|Dockerfile|Makefile|Jenkinsfile|\.toml$|\.rs$|\.rb$|\.cpp$|\.hpp$|\.H$|\.C$|\.c$|\.cc$|\.hh$|\.h$|\.ex$|\.exs$|\.erl$|\.groovy$|\.scala$|\.yaml$|\.yml$|\.j2$|\.tf$|\.R$|\.cs$|\.wdl$|\.json$'
+sourceTargets='\.py$|\.R$|\.java$|\.sh$|\.pl$|\.xml$|Dockerfile|Makefile|Jenkinsfile|\.toml$|\.rs$|\.rb$|\.cpp$|\.hpp$|\.H$|\.C$|\.c$|\.cc$|\.hh$|\.h$|\.ex$|\.exs$|\.erl$|\.groovy$|\.scala$|\.yaml$|\.yml$|\.j2$|\.tf$|\.R$|\.cs$|\.wdl$|\.json$|\.go$|\.nf$|\.feature$|\.js$'
 
 if [[ "x$1" == "x" ]]
 then
@@ -16,4 +16,4 @@ else
   grepTarget=$2
 fi
 
-find . -type f | grep -E $sourceTargets | grep -v ' ' | xargs grep $grepArgs "$grepTarget"
+find . -not -path '*.git*' -not -path '*.tox*' -type f | grep -E $sourceTargets | grep -v ' ' | xargs grep $grepArgs "$grepTarget"
