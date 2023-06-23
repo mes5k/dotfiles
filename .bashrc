@@ -1,4 +1,3 @@
-
 # Get system defaults
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
@@ -194,11 +193,12 @@ alias todo="vi ~/.todo"
 alias servedir="python -m SimpleHTTPServer"
 
 #alias ff="find . -type f -name .git -prune -o -type f"
-alias ff="find . -not -path '*.git*' -type f"
+alias ff="find . -not -path '*.git*' -not -path '*.tox*' -type f"
 
-#alias k=kubectl
-
-#source <(kubectl completion bash | sed s/kubectl/k/g)
+# kubernetes completion and k alias
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
 
 # Amazon Web Services auto complete
 complete -C aws_completer aws
@@ -234,3 +234,9 @@ if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
 fi
 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
+
+if [ -f /etc/rancher/k3s/k3s.yaml ]
+then
+    export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+fi
+
