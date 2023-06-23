@@ -3,15 +3,38 @@
 import sys
 import argparse
 import json
+import collections
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Beautify JSON')
     parser.add_argument('jsons', nargs='+', help='One or more JSON files')
     parser.add_argument('-i', '--inplace', action='store_true', help='Update file in place')
     parser.add_argument('-I', '--indent', type=int, default=4, help='Number of spaces to indent')
-    parser.add_argument('-s', '--sort', action='store_true', help='Sort keys')
+    parser.add_argument('-s', '--sort', action='store_true', help='Sort objects by keys')
+    parser.add_argument('-S', '--sort-lists', action='store_true', help='Sort contents of lists')
 
     return parser.parse_args()
+
+
+def sort_lists(data):
+    if isinstance(data, (list, tuple, set)):
+        semi = [ sort_lists(d) for d in data ]
+        do_sort = True
+        for s in semi:
+            if isinstance(s, collections.OrderedDict):
+                do_sort = False
+                break
+        if do_sort:
+            return sorted( semi )
+        else:
+            return semi
+    elif isinstance(data, dict):
+        ordered_dict = collections.OrderedDict(sorted(data.items()))
+        for k, v in ordered_dict.items():
+            ordered_dict[str(k)] = sort_lists(v)
+        return ordered_dict
+    else:
+        return data
 
 def main():
     args = parse_args()
@@ -20,6 +43,9 @@ def main():
 
         with open(y, 'r') as yin:
             data = json.load(yin)
+
+        if args.sort_lists:
+            data = sort_lists(data)
 
         if args.inplace:
             with open(y, 'w') as yout:
