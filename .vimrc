@@ -11,6 +11,7 @@ set smartcase
 set nocp
 set expandtab
 set hlsearch
+" set t_Co=256
 
 :filetype indent off
 
@@ -26,13 +27,21 @@ set hlsearch
 ":colorscheme shine
 ":colorscheme zellner
 
+" Set the search highlight colors
+hi Search cterm=NONE ctermfg=grey ctermbg=blue
+
 " Show trailing whitepace
-:highlight ExtraWhitespace ctermbg=green guibg=green
+" :highlight ExtraWhitespace ctermbg=green guibg=green
+:highlight ExtraWhitespace ctermbg=green
 :match ExtraWhitespace /\s\+$/
 
 " Show tab characters
 " Run :so ~/mikebin/color_demo.vim in vim to see all the possibile colors
-:highlight Tabs ctermbg=255 guibg=255
+" Note the following errors:
+"    E254: Cannot allocate color 255
+" Seem to be related to the guibg setting.
+" :highlight Tabs ctermbg=255 guibg=255
+:highlight Tabs ctermbg=255
 :2match Tabs /\t/
 
 "" This is OK where line length really matters, but obscures other highlights.
